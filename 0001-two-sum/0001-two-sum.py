@@ -1,12 +1,19 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        #Brute foce would be O(n)^2 because we could potentially cycle through the list twice. basically check if indx 1 + indx 2 = target. 
+        res = {} #using a dictionary to store previously seen numbers 
         
-        res = dict() 
+        #num = value, i the index (Enumerate)
+        for i, num in enumerate(nums):
+            #  9 - 2 = 7
+            complement = target - num
+            
+            #Checking if the value of complement exists in our dictionary 
+            # if it does then return the indexs
+            if complement in res:
+                return [res[complement], i]
         
-        for indx, num in enumerate(nums): #enumerate puts it in the format [0,1] Needed for solution
-            if num in res:
-                return [res[num], indx]
-            else:
-                res[target - num] = indx 
+            #Add the number + index to dictionary {7: 1}
+            res[num] = i
+        
+        return []
             
