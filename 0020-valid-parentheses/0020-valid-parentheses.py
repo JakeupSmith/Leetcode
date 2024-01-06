@@ -1,15 +1,18 @@
 class Solution:
-    def isValid(self, s: str) -> bool:
+    def isValid(self, s) -> bool:
         stack = []
-        closeToOpen = { ")" : "(", "]" : "[", "}" : "{" } #Creating a hashmap from the closing to the opening so(). 
-
-        for c in s:                    
-            if c in closeToOpen:        #Checking if it is within closeToOpen if it is then it is a closing paraenthesis. 
-                if stack and stack[-1] == closeToOpen[c]: #Checking if they match one another. 
-                    stack.pop() 
-                else:
+        
+        dict = {"]":"[", "}":"{", ")":"("}
+        for char in s:
+            if char in dict.values():
+                #only appending the opening brackets 
+                stack.append(char)
+            elif char in dict.keys():
+                #If the stack is empty or the ], }, ) != [, {, (
+                if stack == [] or dict[char] != stack.pop():
                     return False
-            else:
-                stack.append(c) #appending in case we get ((( start. 
+        return stack == []
+                    
+                    
             
-        return True if not stack else False
+            
